@@ -52,7 +52,7 @@ class _MainAppState extends State<MainApp> {
         break;
 
       default:
-        // şimdilik diğerleri yok say
+        
         break;
     }
   }
@@ -136,13 +136,10 @@ class _MainAppState extends State<MainApp> {
   String _format(double v) {
     if (v.isNaN || v.isInfinite) return 'Error';
 
-    // 42.0 -> 42
     String s = (v == v.roundToDouble()) ? v.toInt().toString() : v.toString();
 
-    // bilimsel gösterim gelirse (çok büyük/küçük sayılar) direkt Overflow diyelim şimdilik
     if (s.contains('e') || s.contains('E')) return 'Overflow';
 
-    // ✅ basamak sayısı kontrolü
     if (_digitCount(s) > maxDigits) return 'Overflow';
 
     return s;
@@ -166,19 +163,16 @@ class _MainAppState extends State<MainApp> {
 
   void _backspace() {
     setState(() {
-      // Eğer yeni sayı girilecek moddaysak (ör: 2 + basıldıktan sonra)
       if (_resetOnNextDigit) {
         display = '0';
         return;
       }
 
-      // Tek karakter kaldıysa
       if (display.length <= 1) {
         display = '0';
         return;
       }
 
-      // Son karakteri sil
       display = display.substring(0, display.length - 1);
     });
   }
@@ -371,15 +365,15 @@ Widget calcButton(String text, {required VoidCallback onPressed, Color? color, C
 
 class AppColors {
   // Genel arka planlar
-  static const Color background = Color(0xFF252424);      // senin ARGB(221,37,36,36) yakın
-  static const Color surface = Color(0xFF1F1F1F);         // panel/katman gibi yerler için (opsiyon)
+  static const Color background = Color(0xFF252424);
+  static const Color surface = Color(0xFF1F1F1F);  
 
   // Display (ekran) yazıları
   static const Color displayPrimaryText = Color(0xFFFFFFFF);
   static const Color displaySecondaryText = Color(0xFFBDBDBD);
 
   // Tuş yüzeyleri
-  static const Color numberKeyBg = Color(0xFF2E2E2E);     // senin kullandığın ana tuş rengi
+  static const Color numberKeyBg = Color(0xFF2E2E2E);   
   static const Color operatorKeyBg = Color(0xFF3A3A3A);   
 
   // Eşittir (accent)
@@ -389,9 +383,9 @@ class AppColors {
 
   // Tuş yazıları
   static const Color keyText = Color(0xFFFFFFFF);
-  static const Color keyTextMuted = Color(0xFFE0E0E0);    // gerekirse
+  static const Color keyTextMuted = Color(0xFFE0E0E0);
 
-  // Hover / pressed (ileriye dönük, şimdilik kullanmasan da dursun)
-  static const Color hoverOverlay = Color(0x1AFFFFFF);    // %10 beyaz overlay
-  static const Color pressedOverlay = Color(0x33FFFFFF);  // %20 beyaz overlay
+  // Hover / pressed
+  static const Color hoverOverlay = Color(0x1AFFFFFF);   
+  static const Color pressedOverlay = Color(0x33FFFFFF);  
 }
